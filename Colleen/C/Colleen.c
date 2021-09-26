@@ -31,10 +31,20 @@ int main() {
 
 buffered_string get_source_code(buffered_string buffer) {
 	buffered_string other_source_code = get_other_source_code(buffer);
-	sprintf(buffer, "%s PASS %s", other_source_code, other_source_code);
+	sprintf(buffer,
+"%sbuffered_string get_other_source_code(buffered_string buffer) {\n"
+"	return strcat(buffer,\n"
+"%s\n"
+");\n"
+"}\n",
+other_source_code, other_source_code);
 	return buffer;
 }
 
 buffered_string get_other_source_code(buffered_string buffer) {
-	return strcat(buffer, "PASS");
+	return strcat(buffer,
+"#include <string.h>\n"
+"#include <unistd.h>\n"
+"#include <stdio.h>\n"
+);
 }
