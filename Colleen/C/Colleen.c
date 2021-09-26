@@ -17,25 +17,30 @@ const_string    get_other_source_code();
 
 void fill_codify_lines(buffered_string destination, const_string lines) {
     if (*lines == 0) {
-        *destination = DOUBLE_QUOTE;
         return;
     }
     else if (*lines == ENTER) {
-        *destination = SLASH;
-        *(destination + 1) = N_SYMBOL;
-        *(destination + 2) = DOUBLE_QUOTE;
-        *(destination + 3) = ENTER;
-        *(destination + 4) = DOUBLE_QUOTE;
-        fill_codify_lines(destination + 5, lines + 1);
+        *destination++ = SLASH;
+        *destination++ = N_SYMBOL;
+        *destination++ = DOUBLE_QUOTE;
+        *destination++ = ENTER;
+        if (lines[1] != 0)
+            *destination++ = DOUBLE_QUOTE;
+        fill_codify_lines(destination, lines + 1);
+    }
+    else if (*lines == SLASH) {
+        *destination++ = SLASH;
+        *destination++ = SLASH;
+        fill_codify_lines(destination, lines + 1);
     }
     else if (*lines == DOUBLE_QUOTE) {
-        *destination = SLASH;
-        *(destination + 1) = DOUBLE_QUOTE;
-        fill_codify_lines(destination + 2, lines + 1);
+        *destination++ = SLASH;
+        *destination++ = DOUBLE_QUOTE;
+        fill_codify_lines(destination, lines + 1);
     }
     else {
-        *destination = *lines;
-        fill_codify_lines(destination + 1, lines + 1);
+        *destination++ = *lines;
+        fill_codify_lines(destination, lines + 1);
     }
 }
 
@@ -68,8 +73,8 @@ buffered_string write_source_code_to_buffer(buffered_string output_buffer) {
 "%s"
 "const_string get_other_source_code() {\n"
 "    return\n"
-"%s\n"
-";}\n\n",
+"%s"
+";}\n",
 other_source_code, codify_lines(buffer, other_source_code));
     return output_buffer;
 }
@@ -95,25 +100,30 @@ const_string get_other_source_code() {
 "\n"
 "void fill_codify_lines(buffered_string destination, const_string lines) {\n"
 "    if (*lines == 0) {\n"
-"        *destination = DOUBLE_QUOTE;\n"
 "        return;\n"
 "    }\n"
 "    else if (*lines == ENTER) {\n"
-"        *destination = SLASH;\n"
-"        *(destination + 1) = N_SYMBOL;\n"
-"        *(destination + 2) = DOUBLE_QUOTE;\n"
-"        *(destination + 3) = ENTER;\n"
-"        *(destination + 4) = DOUBLE_QUOTE;\n"
-"        fill_codify_lines(destination + 5, lines + 1);\n"
+"        *destination++ = SLASH;\n"
+"        *destination++ = N_SYMBOL;\n"
+"        *destination++ = DOUBLE_QUOTE;\n"
+"        *destination++ = ENTER;\n"
+"        if (lines[1] != 0)\n"
+"            *destination++ = DOUBLE_QUOTE;\n"
+"        fill_codify_lines(destination, lines + 1);\n"
+"    }\n"
+"    else if (*lines == SLASH) {\n"
+"        *destination++ = SLASH;\n"
+"        *destination++ = SLASH;\n"
+"        fill_codify_lines(destination, lines + 1);\n"
 "    }\n"
 "    else if (*lines == DOUBLE_QUOTE) {\n"
-"        *destination = SLASH;\n"
-"        *(destination + 1) = DOUBLE_QUOTE;\n"
-"        fill_codify_lines(destination + 2, lines + 1);\n"
+"        *destination++ = SLASH;\n"
+"        *destination++ = DOUBLE_QUOTE;\n"
+"        fill_codify_lines(destination, lines + 1);\n"
 "    }\n"
 "    else {\n"
-"        *destination = *lines;\n"
-"        fill_codify_lines(destination + 1, lines + 1);\n"
+"        *destination++ = *lines;\n"
+"        fill_codify_lines(destination, lines + 1);\n"
 "    }\n"
 "}\n"
 "\n"
@@ -146,8 +156,8 @@ const_string get_other_source_code() {
 "\"%s\"\n"
 "\"const_string get_other_source_code() {\\n\"\n"
 "\"    return\\n\"\n"
-"\"%s\\n\"\n"
-"\";}\\n\\n\",\n"
+"\"%s\"\n"
+"\";}\\n\",\n"
 "other_source_code, codify_lines(buffer, other_source_code));\n"
 "    return output_buffer;\n"
 "}\n"

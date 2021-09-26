@@ -25,7 +25,7 @@ C_FILES = $(addprefix $(C_DIR)/, $(addsuffix .c, $(FILE_NAMES)))
 all: $(NAME)
 	@echo $(NAME) is assembled!
 
-$(NAME):
+$(NAME): $(C_FILES)
 	$(CC) $(COMPILE_FLAGS) $(C_FILES) -o $(NAME)
 
 .PHONY: clean
