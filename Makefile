@@ -18,6 +18,7 @@ all:
 .PHONY: clean
 clean:
 	@$(MAKE) -C $(COLLEEN_DIR) clean --no-print-directory --silent
+	@$(MAKE) -C $(GRACE_DIR) clean --no-print-directory --silent
 
 .PHONY: re
 re: clean Colleen
@@ -34,4 +35,18 @@ $(COLLEEN_TARGET):
 	@$(MAKE) -C $(COLLEEN_DIR) --no-print-directory --silent
 
 ### End of Colleen part
+
+### Grace part
+
+GRACE_DIR = ./Grace
+GRACE_TARGET = $(GRACE_DIR)/Grace
+
+.PHONY: Grace
+Grace: $(GRACE_TARGET)
+
+$(GRACE_TARGET):
+	@$(MAKE) -C $(GRACE_DIR) --no-print-directory --silent
+
+### End of Grace part
+
 
