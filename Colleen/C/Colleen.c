@@ -1,34 +1,40 @@
 #include <string.h>
 #include <unistd.h>
+#include <stdio.h>
 
-typedef const char *	const_string;
+#define PROGRAM_MAXIMUM_SIZE 10240
 
-const_string process_on_source_code(const_string source_code);
-const_string get_source_code();
-const_string get_other_source_code();
+typedef char *	buffered_string;
+
+buffered_string process_on_source_code(buffered_string source_code);
+buffered_string get_source_code(buffered_string buffer);
+buffered_string get_other_source_code(buffered_string buffer);
 
 /*
  * Here we are working with an unprepared source code
  * so that it is identical to the real one
  */
-const_string process_on_source_code(const_string source_code) {
+buffered_string process_on_source_code(buffered_string source_code) {
 	return source_code;
 }
 
 int main() {
+	char buffer[PROGRAM_MAXIMUM_SIZE];
+	bzero(buffer, PROGRAM_MAXIMUM_SIZE);
 	/*
 	 * Here we print the source code of the program
 	 */
-	const_string full_source_code = process_on_source_code(get_source_code());
+	buffered_string full_source_code = process_on_source_code(get_source_code(buffer));
 	write(1, full_source_code, strlen(full_source_code));
 	return 0;
 }
 
-const_string get_source_code() {
-	const_string other_source_code = get_other_source_code();
-	return other_source_code;
+buffered_string get_source_code(buffered_string buffer) {
+	buffered_string other_source_code = get_other_source_code(buffer);
+	sprintf(buffer, "%s PASS %s", other_source_code, other_source_code);
+	return buffer;
 }
 
-const_string get_other_source_code() {
-	return "PASS";
+buffered_string get_other_source_code(buffered_string buffer) {
+	return strcat(buffer, "PASS");
 }
