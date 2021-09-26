@@ -30,6 +30,7 @@ COLLEEN_TARGET = $(COLLEEN_DIR)/Colleen
 
 .PHONY: Colleen
 Colleen: $(COLLEEN_TARGET)
+	@cp $(COLLEEN_TARGET) .
 
 $(COLLEEN_TARGET):
 	@$(MAKE) -C $(COLLEEN_DIR) --no-print-directory --silent
@@ -43,6 +44,7 @@ GRACE_TARGET = $(GRACE_DIR)/Grace
 
 .PHONY: Grace
 Grace: $(GRACE_TARGET)
+	@cp $(GRACE_TARGET) .
 
 $(GRACE_TARGET):
 	@$(MAKE) -C $(GRACE_DIR) --no-print-directory --silent
