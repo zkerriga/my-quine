@@ -12,7 +12,7 @@
 
 NAME = Colleen
 
-C_DIR = c
+C_DIR = C
 ASM_DIR = asm
 
 CC = clang
