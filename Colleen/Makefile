@@ -31,3 +31,6 @@ $(NAME):
 .PHONY: clean
 clean:
 	rm -rf $(NAME)
+
+.PHONY: re
+re: clean all

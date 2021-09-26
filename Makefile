@@ -19,6 +19,9 @@ all:
 clean:
 	@$(MAKE) -C $(COLLEEN_DIR) clean --no-print-directory --silent
 
+.PHONY: re
+re: clean Colleen
+
 ### Colleen part
 
 COLLEEN_DIR = ./Colleen
