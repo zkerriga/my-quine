@@ -23,9 +23,10 @@ void fill_codify_lines(buffered_string destination, const_string lines) {
         *destination++ = SLASH;
         *destination++ = N_SYMBOL;
         *destination++ = DOUBLE_QUOTE;
-        *destination++ = ENTER;
-        if (lines[1] != 0)
+        if (lines[1] != 0) {
+            *destination++ = ENTER;
             *destination++ = DOUBLE_QUOTE;
+        }
         fill_codify_lines(destination, lines + 1);
     }
     else if (*lines == SLASH) {
@@ -73,7 +74,7 @@ buffered_string write_source_code_to_buffer(buffered_string output_buffer) {
 "%s"
 "const_string get_other_source_code() {\n"
 "    return\n"
-"%s"
+"%s\n"
 ";}\n",
 other_source_code, codify_lines(buffer, other_source_code));
     return output_buffer;
@@ -106,9 +107,10 @@ const_string get_other_source_code() {
 "        *destination++ = SLASH;\n"
 "        *destination++ = N_SYMBOL;\n"
 "        *destination++ = DOUBLE_QUOTE;\n"
-"        *destination++ = ENTER;\n"
-"        if (lines[1] != 0)\n"
+"        if (lines[1] != 0) {\n"
+"            *destination++ = ENTER;\n"
 "            *destination++ = DOUBLE_QUOTE;\n"
+"        }\n"
 "        fill_codify_lines(destination, lines + 1);\n"
 "    }\n"
 "    else if (*lines == SLASH) {\n"
@@ -156,9 +158,10 @@ const_string get_other_source_code() {
 "\"%s\"\n"
 "\"const_string get_other_source_code() {\\n\"\n"
 "\"    return\\n\"\n"
-"\"%s\"\n"
+"\"%s\\n\"\n"
 "\";}\\n\",\n"
 "other_source_code, codify_lines(buffer, other_source_code));\n"
 "    return output_buffer;\n"
 "}\n"
+"\n"
 ;}
