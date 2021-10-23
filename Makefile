@@ -19,6 +19,7 @@ all:
 clean:
 	@$(MAKE) -C $(COLLEEN_DIR) clean --no-print-directory --silent
 	@$(MAKE) -C $(GRACE_DIR) clean --no-print-directory --silent
+	@$(MAKE) -C $(SULLY_DIR) clean --no-print-directory --silent
 
 .PHONY: re
 re: clean Colleen
@@ -49,4 +50,15 @@ $(GRACE_TARGET):
 
 ### End of Grace part
 
+### Sully part
 
+SULLY_DIR = ./Sully
+SULLY_TARGET = $(SULLY_DIR)/Sully_5
+
+.PHONY: Sully
+Sully: $(SULLY_TARGET)
+
+$(SULLY_TARGET):
+	@$(MAKE) -C $(SULLY_DIR) --no-print-directory --silent
+
+### End of Sully part
