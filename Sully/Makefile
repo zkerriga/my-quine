@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Sully_5
+NAME = Sully
 
 C_DIR = C
 ASM_DIR = asm
@@ -18,7 +18,7 @@ ASM_DIR = asm
 CC = clang
 COMPILE_FLAGS = -Wall -Wextra -Werror
 
-FILE_NAMES = Sully_5
+FILE_NAMES = Sully
 C_FILES = $(addprefix $(C_DIR)/, $(addsuffix .c, $(FILE_NAMES)))
 
 .PHONY: all

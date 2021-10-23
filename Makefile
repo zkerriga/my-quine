@@ -53,7 +53,7 @@ $(GRACE_TARGET):
 ### Sully part
 
 SULLY_DIR = ./Sully
-SULLY_TARGET = $(SULLY_DIR)/Sully_5
+SULLY_TARGET = $(SULLY_DIR)/Sully
 
 .PHONY: Sully
 Sully: $(SULLY_TARGET)
